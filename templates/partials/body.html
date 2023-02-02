@@ -1,0 +1,10 @@
+<body>
+  <div class="diary content">
+    <h2>All Entries</h2>
+    {% for entries in diary %}
+    <p class="date">{{diary.date}}</p>
+    <h3 class="heading">{{diary.heading}}</h3>
+    <p class="content">{{diary.content}}</p>
+    {% endfor %}
+  </div>
+</body>

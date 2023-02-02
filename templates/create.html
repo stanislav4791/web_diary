@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include("./partials/head.html") %}
+
+  <body>
+    {% include("./partials/navbar.html") %}
+
+    <div class="create-diary content">
+      <form method="POST" action="/diary/create">
+        <label for="date">Diary date:</label>
+        <input type="text" id="date" name="date" required />
+        <label for="heading">Diary heading:</label>
+        <input type="text" id="heading" name="heading" required />
+        <label for="content">Diary content:</label>
+        <textarea id="content" name="content" required></textarea>
+        <button>Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

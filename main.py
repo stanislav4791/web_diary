@@ -1,12 +1,17 @@
-from flask import Flask, render_template
-from flask_mysqldb import MySQL
+from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQLdb
+from db import *
 
 app = Flask(__name__)
-mysql = MySQL(app)
 
 @app.route("/")
-def index():
-    return render_template("index.html")
+def home():
+    return render_template("index.html", title='HOME')
+
+
+@app.route("/diary", methods = ['POST'])
+def insert():
+    return insert_blog()
 
 if __name__ == "__main__":
     app.run()
