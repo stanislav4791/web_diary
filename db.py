@@ -1,6 +1,7 @@
-from flask_mysqldb import MySQL
-from flask import request, redirect, url_for
+from flask import request, redirect
 from main import app
+from flask_mysqldb import MySQL
+
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -19,5 +20,5 @@ def insert_blog():
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO diary (date, heading, content) VALUES (%s, %s, %s)', (date, heading, content))
         mysql.connection.commit()
-        return redirect(url_for('index.html'))
+        return redirect("/")
 
