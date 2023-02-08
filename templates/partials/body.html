@@ -1,11 +1,9 @@
 <body>
   <div class="content">
     <h2>All Entries</h2>
-    <button>Make new entry</button>
-    {% for entries in diary %}
-    <p class="date">{{diary.date}}</p>
-    <h3 class="heading">{{diary.heading}}</h3>
-    <p class="content">{{diary.content}}</p>
-    {% endfor %}
+    <a class="newEntry" href="/diary">Make new entry</button>
+    <p class="date"></p>
+    <h3 class="heading"></h3>
+    <p class="content"></p>
   </div>
 </body>
