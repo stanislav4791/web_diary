@@ -11,9 +11,13 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
- 
 @app.route("/")
 def index():
+    return render_template("index.html", title='HOME')
+
+ 
+@app.route("/diary")
+def diary():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM entries")
     data = cur.fetchall()

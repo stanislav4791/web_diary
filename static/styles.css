@@ -70,16 +70,16 @@ footer p {
 }
 
 .content {
+  margin-top: 20px;
   width: 80%;
   margin: auto;
   background-color: antiquewhite;
 }
-.content p,
-h3 {
-  display: block;
-}
 
 .newEntry {
+  position: absolute;
+  top: 140px;
+  right: 150px;
 }
 
 /* create entry styles */

@@ -1,12 +1,12 @@
 <body>
-  {% for entry in data %} 
   <div class="content">
     <h2>All Entries</h2>
-    <a class="newEntry" href="/diary/create">Make new entry</button>
-    <p class="id">{{entry.id}}</p>
+    <a class="newEntry" href="/diary/create">Make new entry</button><br>
+    {% for entry in data %} 
+    <a class="id" href="/diary/{{entry.id}}">{{entry.id}}</a>
     <p class="date">{{entry.date}}</p>
-    <h3 class="heading">{{entry.heading}}</h3>
+    <h4 class="heading">{{entry.heading}}</h4>
     <p class="content">{{entry.content}}</p>
+    {% endfor %} 
   </div>
-  {% endfor %} 
 </body>
