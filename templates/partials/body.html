@@ -1,9 +1,12 @@
 <body>
+  {% for entry in data %} 
   <div class="content">
     <h2>All Entries</h2>
     <a class="newEntry" href="/diary/create">Make new entry</button>
-    <p class="date"></p>
-    <h3 class="heading"></h3>
-    <p class="content"></p>
+    <p class="id">{{entry.id}}</p>
+    <p class="date">{{entry.date}}</p>
+    <h3 class="heading">{{entry.heading}}</h3>
+    <p class="content">{{entry.content}}</p>
   </div>
+  {% endfor %} 
 </body>

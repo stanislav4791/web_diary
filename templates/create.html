@@ -5,7 +5,7 @@
   <body>
     {% include "/partials/navbar.html" %}
 
-    <div class="create-diary content">
+    <div class="create">
       <form method="POST" action="/diary/create">
         <label for="date">Diary date:</label>
         <input type="text" id="date" name="date" required />
@@ -13,7 +13,7 @@
         <input type="text" id="heading" name="heading" required />
         <label for="content">Diary content:</label>
         <textarea id="content" name="content" required></textarea>
-        <button>Submit</button>
+        <button type="submit">Insert Data</button>
       </form>
     </div>
   </body>
