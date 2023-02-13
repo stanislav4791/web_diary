@@ -25,31 +25,20 @@ def diary():
     return render_template("index.html", data = data, title='HOME')
 
 
-# @app.route("/diary/create", methods=['GET','POST'])
-# def create():
-#     if request.method == ['POST']:
-#         save_entry(request.form)
-#     elif request.method == ['GET']:
-#         return render_template("create.html", title='CREATE')
+@app.route("/diary/create", methods=['POST', 'GET'])
+def insert():
+    if request.method == ['GET']:
+        return render_template("create.html", title='CREATE')
+    if request.method == ['POST']:
+        date = request.form['date']
+        heading = request.form['heading']
+        content = request.form['content']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO entries (date, heading, content) VALUES (%s, %s, %s)", (date, heading, content))
+        mysql.connection.commit()
+    return redirect("/diary")  
+    
         
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# if request.method == ['GET']:
-    #     return render_template("create.html", title='HOME')
-    # elif request.method == ['POST']:
-    #     save_entry(request.form)
-    #     return render_template("index.html", title='HOME')
-
-    # def save_entry(form):
-
-#     if request.method == "POST":
-#         date = form['name']
-#         heading = form['heading']
-#         content = form['content']
-
-#         cur = mysql.connection.cursor()
-#         cur.execute('INSERT INTO diary (date, heading, content) VALUES (%s, %s, %s)', (date, heading, content))
-#         mysql.connection.commit()
-#         return redirect("/")
