@@ -28,10 +28,10 @@ def diary():
 @app.route("/diary/create", methods=['GET','POST'])
 def insert():
     print("PRINT")
-    if request.method == ['GET']:
+    if request.method == 'GET':
         print("Menee getiin")
         return render_template("create.html", title="CREATE")
-    elif request.method == ['POST']:
+    elif request.method == 'POST':
         print("Menee postiin")
         date = request.form['date']
         heading = request.form['heading']
