@@ -42,13 +42,13 @@ nav ul li a:hover {
 
 button {
   border: none;
-  background: blue;
+  background: rgb(138, 32, 94);
   padding: 12px 20px;
   margin-left: 10px;
   border-radius: 30px;
   color: white;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 30px;
   transition: 0.4s;
 }
 
@@ -112,4 +112,109 @@ footer p {
 
 textarea {
   height: 120px;
+}
+/* !!!!!! Create LOGIN Style  !!!!!! */
+/* !!!!!! Create LOGIN Style  !!!!!! */
+/* !!!!!! Create LOGIN Style  !!!!!! */
+
+.login {
+  font-size: 25px;
+  background-color: rgb(101, 128, 144);
+}
+
+.login form {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: burlywood;
+}
+
+.login form h1 {
+  text-align: center;
+  margin-bottom: 5px;
+  color:black;
+}
+
+.login form label {
+  font-size: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;     /*aligned with LOGIN Button*/
+  margin-right: 20px;
+}
+
+.login form input {
+  border: none;
+  background: whitesmoke;
+  align-items: center;
+  padding: 12px 25px;
+  margin-left: 20px;
+  border-radius: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.login button {
+  border: none;
+  background: rgb(138, 32, 94);
+  align-items: center;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  transition: 0.4s;
+}
+/* !!!!!! Create REGISTER Style  !!!!!! */
+/* !!!!!! Create REGISTER Style  !!!!!! */
+
+.register {
+  font-size: 25px;
+  background-color: rgb(101, 128, 144);
+}
+
+.register form {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: burlywood;
+}
+
+.register form h1 {
+  text-align: center;
+  margin-bottom: 5px;
+  color:black;
+}
+
+.register form label {
+  font-size: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;     /*aligned with REGISTER Button*/
+  margin-right: 20px;
+}
+
+.register form input {
+  border: none;
+  background: whitesmoke;
+  align-items: center;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.register button {
+  border: none;
+  background: rgb(138, 32, 94);
+  align-items: center;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  transition: 0.4s;
 }
