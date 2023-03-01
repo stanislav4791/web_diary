@@ -3,6 +3,8 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
+
+app.secret_key = 'stanistheman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
@@ -17,7 +19,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE username = % s AND password = % s', (username, password))
+        cur.execute('SELECT * FROM user WHERE username = %s AND password = %s', (username, password))
         user = cur.fetchone()
         if user:
             session['loggedin'] = True
@@ -35,7 +37,7 @@ def register():
         password = request.form['password']
         email = request.form['email']
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO user VALUES (NULL, % s, % s, % s)', (username, password, email))
+        cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, password, email))
         mysql.connection.commit()
         #return render_template("register.html", title='REGISTER')
         return redirect(url_for('login'))
@@ -63,13 +65,47 @@ def insert():
     if request.method == 'GET':
         return render_template("create.html", title="CREATE")
     elif request.method == 'POST':
+        user_id = session['user_id']
         date = request.form['date']
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO entries (date, heading, content) VALUES (%s, %s, %s)", (date, heading, content))
+        cur.execute("INSERT INTO entries (user_id, date, heading, content) VALUES (%s, %s, %s, %s)", (user_id, date, heading, content))
         mysql.connection.commit()
         return redirect(url_for('diary'))
+
+@app.route("/diary/<id>")
+def show_entry(id):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s",(id))
+        entry = cur.fetchone()
+        print(entry)
+        return render_template("/partials/entry.html", entry = entry, title="ENTRY")
+
+@app.route("/diary/update/<id>", methods=['GET','POST'])
+def update(id):
+    if request.method == 'GET':
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s",(id))
+        data = cur.fetchone()
+        print(data)
+        return render_template("update.html", data = data, title="UPDATE")
+    elif request.method == 'POST':        
+        date = request.form['date']
+        heading = request.form['heading']
+        content = request.form['content']
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT date, heading, content FROM entries) VALUES (%s, %s, %s)", (date, heading, content))
+        mysql.connection.commit()
+        return redirect("/diary")
+
+@app.route("/diary/delete/<id>")
+def delete(id):
+    pass
+
+
+    
+
 
 
 
