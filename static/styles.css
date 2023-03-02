@@ -58,17 +58,27 @@ button:hover {
   cursor: pointer;
 }
 
-/*.footer {
+footer {
   border-top: 5px solid rgba(0, 0, 0, 0.2);
   min-height: 80px;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
-.footer p {
+.c2 {
+  flex-grow: 2;
+}
+
+.footer div {
+  text-align: center;
+}
+.footer div h3 {
+  font-weight: 300;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+footer p {
   padding-left: 10px;
   padding-right: 10px;
-}*/
+}
 
 .content {
   margin-top: 20px;
@@ -132,14 +142,14 @@ textarea {
 .login form h1 {
   text-align: center;
   margin-bottom: 5px;
-  color:black;
+  color: black;
 }
 
 .login form label {
   font-size: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 10px;     /*aligned with LOGIN Button*/
+  margin-left: 10px; /*aligned with LOGIN Button*/
   margin-right: 20px;
 }
 
@@ -185,14 +195,14 @@ textarea {
 .register form h1 {
   text-align: center;
   margin-bottom: 5px;
-  color:black;
+  color: black;
 }
 
 .register form label {
   font-size: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 10px;     /*aligned with REGISTER Button*/
+  margin-left: 10px; /*aligned with REGISTER Button*/
   margin-right: 20px;
 }
 

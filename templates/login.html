@@ -4,18 +4,37 @@
 
   <body>
     {% include "/partials/navbar.html" %}
-	
+
     <div class="login">
-        <form method="POST" action="/login">
-          <h1>Log In</h1><br>
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required /><br>
-          <label for="password">Password:</label>
-          <input type="text" id="password" name="password" required /><br>
-          <button type="submit">Log In</button>
-          <p class="bottom">Dont't have an account?  <a class="bottom" href="{{url_for('register')}}"> Register here</a></p>
-        </form>
+      <form method="POST" action="/login">
+        <h1>Log In</h1>
+        <br />
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required /><br />
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required /><br />
+        <button type="submit">Log In</button>
+        <p class="bottom">
+          Dont't have an account?
+          <a class="bottom" href="{{url_for('register')}}"> Register here</a>
+        </p>
+      </form>
+    </div>
+    <footer class="footer">
+      <div class="c1">
+        <h3>Stanislav Kiselev</h3>
+        <a href="">Stanislav@example.com</a>
       </div>
-    {% include "/partials/footer.html" %}
+      <div class="c2">
+        <h3>Tuomas Kivilahti</h3>
+        <a href="">Tuomas@example.com</a>
+      </div>
+      <div class="c3">
+        <h3>Antti Hirvelä</h3>
+        <a href="">Antti@example.com</a>
+      </div>
+      <<<<<<< Updated upstream {% include "/partials/footer.html" %} =======
+    </footer>
+    >>>>>>> Stashed changes
   </body>
 </html>

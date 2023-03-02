@@ -88,7 +88,6 @@ def update(id):
         cur = mysql.connection.cursor()
         cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s",(id))
         data = cur.fetchone()
-        print(data)
         return render_template("update.html", data = data, title="UPDATE")
     elif request.method == 'POST':        
         date = request.form['date']
