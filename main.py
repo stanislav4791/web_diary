@@ -30,6 +30,7 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html', title='LOGIN')
 
+
 @app.route('/register', methods =['GET', 'POST'])
 def register():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
