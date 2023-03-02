@@ -57,7 +57,7 @@ def diary():
     cur.execute("SELECT * FROM entries")
     data = cur.fetchall()
     cur.close()
-    return render_template("index.html", data = data, title='HOME')
+    return render_template("diary.html", data = data, title='HOME')
 
 
 @app.route("/diary/create", methods=['GET','POST'])
