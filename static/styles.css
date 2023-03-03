@@ -7,6 +7,7 @@ body {
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
+  height: 800px;
 }
 
 nav {
@@ -42,13 +43,13 @@ nav ul li a:hover {
 
 button {
   border: none;
-  background: rgb(138, 32, 94);
+  background: goldenrod; /* rgb(138, 32, 94);*/
   padding: 12px 20px;
   margin-left: 10px;
   border-radius: 30px;
   color: white;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.4s;
 }
 
@@ -61,8 +62,18 @@ footer {
   border-top: 5px solid rgba(0, 0, 0, 0.2);
   min-height: 80px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+.c2 {
+  flex-grow: 2;
+}
+
+.footer div {
+  text-align: center;
+}
+.footer div h3 {
+  font-weight: 300;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 footer p {
   padding-left: 10px;
@@ -119,31 +130,30 @@ textarea {
 
 .login {
   font-size: 25px;
-  background-color: rgb(101, 128, 144);
+  /*background-color: rgb(101, 128, 144);*/
 }
 
 .login form {
   max-width: 600px;
   margin: 20px auto;
-  background-color: burlywood;
+  /*background-color: burlywood;*/
 }
 
 .login form h1 {
   text-align: center;
   margin-bottom: 5px;
-  color:black;
+  color: black;
 }
 
 .login form label {
   font-size: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 10px;     /*aligned with LOGIN Button*/
+  margin-left: 10px; /*aligned with LOGIN Button*/
   margin-right: 20px;
 }
 
 .login form input {
-  border: none;
   background: whitesmoke;
   align-items: center;
   padding: 12px 25px;
@@ -152,18 +162,20 @@ textarea {
   color: black;
   font-weight: bold;
   font-size: 15px;
+  border-width: 2px;
+  border-color: darkgoldenrod;
 }
 
 .login button {
   border: none;
-  background: rgb(138, 32, 94);
+  background: goldenrod; /* rgb(138, 32, 94);*/
   align-items: center;
   padding: 12px 20px;
   margin-left: 10px;
   border-radius: 30px;
   color: white;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.4s;
 }
 /* !!!!!! Create REGISTER Style  !!!!!! */
@@ -171,31 +183,30 @@ textarea {
 
 .register {
   font-size: 25px;
-  background-color: rgb(101, 128, 144);
+  /*background-color: rgb(101, 128, 144);*/
 }
 
 .register form {
   max-width: 600px;
   margin: 20px auto;
-  background-color: burlywood;
+  /*background-color: burlywood;*/
 }
 
 .register form h1 {
   text-align: center;
   margin-bottom: 5px;
-  color:black;
+  color: black;
 }
 
 .register form label {
   font-size: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 10px;     /*aligned with REGISTER Button*/
+  margin-left: 10px; /*aligned with REGISTER Button*/
   margin-right: 20px;
 }
 
 .register form input {
-  border: none;
   background: whitesmoke;
   align-items: center;
   padding: 12px 20px;
@@ -204,17 +215,57 @@ textarea {
   color: black;
   font-weight: bold;
   font-size: 15px;
+  border-width: 2px;
+  border-color: darkgoldenrod;
 }
 
 .register button {
   border: none;
-  background: rgb(138, 32, 94);
+  background: goldenrod; /* rgb(138, 32, 94);*/
   align-items: center;
   padding: 12px 20px;
   margin-left: 10px;
   border-radius: 30px;
   color: white;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.4s;
 }
+
+/* !!!!!! Create FOOTER Style  !!!!!! */
+/* !!!!!! Create FOOTER Style  !!!!!! */
+
+.footer {
+  /*background-color: rgb(101, 128, 144);*/
+  width: 100%;
+  padding: 40px 25%;
+  display: flex;
+  border-top: 4px solid rgba(0, 0, 0, 0.2);
+}
+.c2 {
+  flex-grow: 2;
+}
+
+.footer div {
+  text-align: center;
+}
+.footer div h3 {
+  font-weight: 300;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.footer div a {
+  text-decoration: none;
+  /*color: white;*/
+}
+
+/* 
+.footer {
+  text-align: center;
+  margin: auto;
+  /*width: ;
+  padding: 5px;
+  background-color: rgb(101, 128, 144);
+  color:white;
+} */

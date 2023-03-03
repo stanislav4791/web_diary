@@ -10,7 +10,7 @@ app.config['MYSQL_DB'] = 'diary'
 
 mysql = MySQL(app)
 
-def save_entry(form):
+def save_entry():
 
     if request.method == "POST":
         date = request.form['name']

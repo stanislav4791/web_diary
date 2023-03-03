@@ -58,7 +58,7 @@ def diary():
     cur.execute("SELECT * FROM entries")
     data = cur.fetchall()
     cur.close()
-    return render_template("index.html", data = data, title='HOME')
+    return render_template("diary.html", data = data, title='HOME')
 
 
 @app.route("/diary/create", methods=['GET','POST'])
@@ -77,32 +77,35 @@ def insert():
 
 @app.route("/diary/<id>")
 def show_entry(id):
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s",(id))
-        entry = cur.fetchone()
-        print(entry)
-        return render_template("/partials/entry.html", entry = entry, title="ENTRY")
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s", [id])
+    entry = cur.fetchone()
+    return render_template("partials/entry.html", entry = entry, title="ENTRY")
 
 @app.route("/diary/update/<id>", methods=['GET','POST'])
 def update(id):
     if request.method == 'GET':
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s",(id))
+        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s", [id])
         data = cur.fetchone()
-        print(data)
         return render_template("update.html", data = data, title="UPDATE")
     elif request.method == 'POST':        
         date = request.form['date']
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT date, heading, content FROM entries) VALUES (%s, %s, %s)", (date, heading, content))
+        cur.execute("UPDATE entries SET (date, heading, content) VALUES (%s, %s, %s) WHERE id = %s", (date, heading, content))
         mysql.connection.commit()
-        return redirect("/diary")
+        return redirect(url_for('diary'))
 
-@app.route("/diary/delete/<id>")
+
+@app.route("/diary/delete/<id>", methods=['GET', 'POST'])
 def delete(id):
-    pass
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM entries WHERE id = %s", [id])
+    mysql.connection.commit()
+    return redirect(url_for('diary'))
+
 
 
     
