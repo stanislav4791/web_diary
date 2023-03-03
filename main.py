@@ -93,12 +93,16 @@ def update(id):
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE entries SET (date, heading, content) VALUES (%s, %s, %s) WHERE id = %s", (date, heading, content))
+        #cur.execute("UPDATE entries SET (date, heading, content) VALUES (%s, %s, %s) WHERE id = %s", (id))
+        sql = "UPDATE entries SET date = %s, heading=%s, content=%s WHERE id=%s"
+        tiedot = (date, heading, content, id)
+        cur.execute(sql,tiedot)
         mysql.connection.commit()
         return redirect(url_for('diary'))
 
 
 @app.route("/diary/delete/<id>", methods=['GET', 'POST'])
+
 def delete(id):
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM entries WHERE id = %s", [id])
