@@ -1,7 +1,7 @@
 <body>
   <div class="content">
     <h2>All Entries</h2>
-    <a class="newEntry" href="/diary/create">Make new entry</a><br />
+    <a class="newEntry" href="/diary/create"><button>Make new entry</button></a><br />
     {% for entry in data %}
     <a class="id" href="/diary/{{entry.id}}">{{entry.id}}</a>
     <p class="date">{{entry.date}}</p>
