@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -26,7 +26,11 @@ def login():
             session['user_id'] = user['user_id']
             session['username'] = user['username']
             session['email'] = user['email']
+            flash("You are logged in")
             return render_template('index.html')
+        else:
+            flash("Check you credentials")
+            return redirect("/login")
     elif request.method == 'GET':
         return render_template('login.html', title='LOGIN')
 
@@ -39,10 +43,9 @@ def register():
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, password, email))
         mysql.connection.commit()
-        #return render_template("register.html", title='REGISTER')
+        flash("Successful registration")
         return redirect(url_for('login'))
     elif request.method == 'GET':
-        #return redirect(url_for('login'))
         return render_template("register.html", title='REGISTER')
 
 
@@ -57,8 +60,11 @@ def diary():
     cur.execute("SELECT * FROM entries")
     data = cur.fetchall()
     cur.close()
-    return render_template("diary.html", data = data, title='HOME')
-
+    if data:
+        return render_template("diary.html", data = data, title='HOME')
+    else:
+        flash("No diary entries")
+        return render_template("diary.html", data = data, title='HOME')
 
 @app.route("/diary/create", methods=['GET','POST'])
 def insert():
@@ -72,6 +78,7 @@ def insert():
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO entries (user_id, date, heading, content) VALUES (%s, %s, %s, %s)", (user_id, date, heading, content))
         mysql.connection.commit()
+        flash("Entry created")
         return redirect(url_for('diary'))
 
 @app.route("/diary/<id>")
@@ -94,11 +101,8 @@ def update(id):
         content = request.form['content']
         cur = mysql.connection.cursor()
         cur.execute("UPDATE entries set date='%s', heading='%s', content='%s' WHERE id='%s' " % (date, heading, content, id))
-        #cur.execute("UPDATE entries SET (date, heading, content) VALUES (%s, %s, %s) WHERE id = %s", (id))
-        #sql = "UPDATE entries SET date = %s, heading=%s, content=%s WHERE id=%s"
-        #tiedot = (date, heading, content, id)
-        #cur.execute(sql,tiedot)
         mysql.connection.commit()
+        flash("Entry updated")
         return redirect(url_for('diary'))
 
 
@@ -108,6 +112,7 @@ def delete(id):
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM entries WHERE id = %s", [id])
     mysql.connection.commit()
+    flash("Entry deleted")
     return redirect(url_for('diary'))
 
 
