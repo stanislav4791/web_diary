@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
+import bcrypt
 
 app = Flask(__name__)
 
@@ -13,15 +14,34 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
+@app.route('/register', methods =['GET', 'POST'])
+def register():
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+        username = request.form['username']
+        password = request.form['password'].encode("utf-8")
+        email = request.form['email']
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, hashed, email))
+        mysql.connection.commit()
+        flash("Successful registration")
+        return redirect(url_for('login'))
+    elif request.method == 'GET':
+        return render_template("register.html", title='REGISTER')
+
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
-        password = request.form['password']
+        password = request.form['password'].encode("utf-8")
+        print(password)
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE username = %s AND password = %s', (username, password))
+        cur.execute('SELECT * FROM user WHERE username = %s', [username])
         user = cur.fetchone()
-        if user:
+        res = list(user.items())
+        stored = res[2][1].encode("utf-8")
+        print(stored)
+        if user and bcrypt.checkpw(password, stored):
             session['loggedin'] = True
             session['user_id'] = user['user_id']
             session['username'] = user['username']
@@ -33,20 +53,6 @@ def login():
             return redirect("/login")
     elif request.method == 'GET':
         return render_template('login.html', title='LOGIN')
-
-@app.route('/register', methods =['GET', 'POST'])
-def register():
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, password, email))
-        mysql.connection.commit()
-        flash("Successful registration")
-        return redirect(url_for('login'))
-    elif request.method == 'GET':
-        return render_template("register.html", title='REGISTER')
 
 
 @app.route("/")
