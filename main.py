@@ -34,14 +34,12 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password'].encode("utf-8")
-        print(password)
         cur = mysql.connection.cursor()
         cur.execute('SELECT * FROM user WHERE username = %s', [username])
         user = cur.fetchone()
         res = list(user.items())
-        stored = res[2][1].encode("utf-8")
-        print(stored)
-        if user and bcrypt.checkpw(password, stored):
+        hash_pass = res[2][1].encode("utf-8")
+        if user and bcrypt.checkpw(password, hash_pass):
             session['loggedin'] = True
             session['user_id'] = user['user_id']
             session['username'] = user['username']
