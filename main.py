@@ -69,7 +69,7 @@ def login():
 
 @app.route("/", methods = ["GET"])
 def index():
-    if request.method == "GET" and session['user_id']:
+    if request.method == "GET":
         return render_template("index.html", title='HOME')
 
  
@@ -146,6 +146,13 @@ def delete(id):
     mysql.connection.commit()
     flash("Entry deleted")
     return redirect(url_for('diary'))
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('userid', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
