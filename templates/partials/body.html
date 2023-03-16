@@ -1,7 +1,12 @@
 <body>
   <div class="content">
     <h2>All Entries</h2>
-    <a class="newEntry" href="/diary/create"><button>Make new entry</button></a><br />
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
+    messages %}
+    <p style="color: green"><b>{{msg}}</b></p>
+    {% endfor %} {% endif %} {% endwith %}
+    <a class="newEntry" href="/diary/create"><button>Make new entry</button></a
+    ><br />
     {% for entry in data %}
     <a class="id" href="/diary/{{entry.id}}">{{entry.id}}</a>
     <p class="date">{{entry.date}}</p>
