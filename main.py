@@ -69,7 +69,7 @@ def login():
 
 @app.route("/", methods = ["GET"])
 def index():
-    if request.method == "GET" and session['user_id']:
+    if request.method == "GET":
         return render_template("index.html", title='HOME')
 
  
