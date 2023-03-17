@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import bcrypt
-
 # create Flask application
 app = Flask(__name__)
 
@@ -112,7 +111,7 @@ def insert():
 @app.route("/diary/<id>")
 def show_entry(id):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM entries WHERE user_id =%s", [id])
+    cur.execute("SELECT * FROM entries WHERE id =%s", [id])
     # open single specific entry
     entry = cur.fetchone()
     return render_template("partials/entry.html", entry = entry, title="ENTRY")
@@ -121,7 +120,7 @@ def show_entry(id):
 def update(id):
     if request.method == 'GET':
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM entries WHERE user_id =%s", [id])
+        cur.execute("SELECT * FROM entries WHERE id =%s", [id])
         # open single specific entry for update 
         data = cur.fetchone()
         return render_template("update.html", data = data, title="UPDATE")
