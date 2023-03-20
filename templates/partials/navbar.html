@@ -7,7 +7,12 @@
     <li><a href="#">Contact us</a></li>
   </ul>
   <div>
+    {% if session['loggedin'] %}
+    <h5 class="username">{{session.username}}</h5>
+    <a href="/logout"><button type="Log out">Log out</button></a>
+    {% else %}
     <a href="/login"><button type="Log in">Log in</button></a>
     <a href="/register"><button type="Sign up">Sign up</button></a>
+    {% endif %}
   </div>
 </nav>

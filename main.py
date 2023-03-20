@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import bcrypt
-
 # create Flask application
 app = Flask(__name__)
 
@@ -16,7 +15,6 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 # create MySQL instance
 mysql = MySQL(app)
-
 
 @app.route('/register', methods =['GET', 'POST'])   # mapping the URLs to a specific function "register" that will handle the logic for that URL
 def register():
@@ -76,8 +74,9 @@ def index():
 @app.route("/diary", methods = ["GET"])
 def diary():
     if request.method == "GET" and session['user_id']:
+        ide = session['user_id']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM entries")
+        cur.execute("SELECT * FROM entries WHERE user_id =%s", [ide])
         # create data variable for database entries
         data = cur.fetchall()
         # deactivate cursor 
@@ -112,7 +111,7 @@ def insert():
 @app.route("/diary/<id>")
 def show_entry(id):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s", [id])
+    cur.execute("SELECT * FROM entries WHERE id =%s", [id])
     # open single specific entry
     entry = cur.fetchone()
     return render_template("partials/entry.html", entry = entry, title="ENTRY")
@@ -121,7 +120,7 @@ def show_entry(id):
 def update(id):
     if request.method == 'GET':
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id, date, heading, content FROM entries WHERE id =%s", [id])
+        cur.execute("SELECT * FROM entries WHERE id =%s", [id])
         # open single specific entry for update 
         data = cur.fetchone()
         return render_template("update.html", data = data, title="UPDATE")
