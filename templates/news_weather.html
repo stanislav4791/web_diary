@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "/partials/head.html" %}
+
+  <body>
+    {% include "/partials/navbar.html" %}
+
+    <div class="news">
+        <div class="weather">
+            {% for news in data %}
+            <p>
+                <h1><title></title></h1>
+                <h2>News and Local Weather</h2>
+            </p>
+            {% endfor %}
+        </div>
+      
+        
+    </div>
+    {% include "/partials/footer.html" %}
+  </body>
+</html>
