@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
-
-from newsyle3 import ylenews_rss
-from weather import *
-
+import bcrypt
+# create Flask application
 app = Flask(__name__)
 
 # create secret key for session & flash
@@ -66,21 +64,6 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html', title='LOGIN')
 
-
-@app.route('/register', methods =['GET', 'POST'])
-def register():
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, password, email))
-        mysql.connection.commit()
-        #return render_template("register.html", title='REGISTER')
-        return redirect(url_for('login'))
-    elif request.method == 'GET':
-        #return redirect(url_for('login'))
-        return render_template("register.html", title='REGISTER')
 
 @app.route("/", methods = ["GET"])
 def index():
@@ -163,18 +146,12 @@ def delete(id):
     flash("Entry deleted")
     return redirect(url_for('diary'))
 
-@app.route("/news")
-
-def news():
-    return render_template("news_weather.html", data = ylenews_rss(), title="news")
-    #return render_template("news_weather.html", data = , title = "news")
-
-
-
-    
-
-
-
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('userid', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
