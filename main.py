@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL
 import bcrypt
 from newsyle3 import ylenews_rss
+from weather2 import weather_list
+
 # create Flask application
 app = Flask(__name__)
 
@@ -155,10 +157,12 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route("/news")
+def news():
+    return render_template("news_weather.html", data = ylenews_rss(), weather = weather_list, title="NEWS")
 
-def new():
-    return render_template("news_weather.html", data = ylenews_rss(), title="news")
-    #return render_template("news_weather.html", data = , title = "news")
+#@app.route("/news")
+#def weather():
+ #   return render_template("news_weather.html", weather = weather_query(), title = "NEWS")
 
 
 if __name__ == "__main__":

@@ -6,16 +6,24 @@
     {% include "/partials/navbar.html" %}
 
     <div class="news">
-        <div class="weather">
-            {% for news in data %}
-            <p>
-                <h1><title></title></h1>
-                <h2>News and Local Weather</h2>
-            </p>
-            {% endfor %}
-        </div>
+      <p><h2>News and Local Weather</h2></p>
+      <ul>
+        {% for news in data %}
+        <h5>{{ news.title }}</h5>
+        <p><a href="url" target="_blank">{{ news.link }}</a></p>
+        <p>{{ news.description}}</p>
+        {% endfor %}
+      </ul>
       
-        
+              
+          <ul>
+            {% for item in weather %}
+            <p><h4>{{ item.query }}  temperature {{ item.temp }}{{ item.unit }}
+              relative humidity {{ item.humidity }}</h4></p>
+                          
+            {% endfor %}
+          </ul>  
+                
     </div>
     {% include "/partials/footer.html" %}
   </body>
