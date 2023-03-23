@@ -15,7 +15,7 @@ def ylenews_rss():
             title = a.find('title').text
             link = a.find('link').text
             #pubDate = a.find('pubDate').text
-            description = a.find('description')
+            description = a.find('description').text
             #enclosure = a.find('enclosure').url # how to scrape .jpg image
 
             article = {
@@ -28,7 +28,7 @@ def ylenews_rss():
             article_list.append(article)
 
         #return print('newsscrape succeeded:', r.status_code)
-        return article_list[0:3] 
+        return article_list[0:5] 
         #print((article_list)[0:3])
         #print(('\n'.join(article_list)))
     except Exception as e:

@@ -160,10 +160,6 @@ def logout():
 def news():
     return render_template("news_weather.html", data = ylenews_rss(), weather = weather_list, title="NEWS")
 
-#@app.route("/news")
-#def weather():
- #   return render_template("news_weather.html", weather = weather_query(), title = "NEWS")
-
 
 if __name__ == "__main__":
     app.run(debug=True)
