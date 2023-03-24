@@ -23,7 +23,4 @@ weather = {
     }
 weather_list.append(weather)
 
-#print(query, "temperature", temp, unit,"relative humidity", humidity)
-#print((weather_list))
-#return query, temp, unit, humidity
 weather_list
