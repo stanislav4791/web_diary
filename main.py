@@ -82,6 +82,7 @@ def diary():
         cur.execute("SELECT * FROM entries WHERE user_id =%s", [ide])
         # create data variable for database entries
         data = cur.fetchall()
+
         # deactivate cursor 
         cur.close()
         # if data is found
