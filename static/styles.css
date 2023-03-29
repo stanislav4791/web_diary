@@ -7,7 +7,7 @@ body {
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
-  height: 800px;
+  min-height: 100vh;
 }
 
 nav {
@@ -60,7 +60,7 @@ button:hover {
 
 footer {
   border-top: 5px solid rgba(0, 0, 0, 0.2);
-  min-height: 80px;
+  min-height: 40px;
   display: flex;
 }
 .c2 {
@@ -247,9 +247,9 @@ textarea {
 .footer {
   /*background-color: rgb(101, 128, 144);*/
   width: 100%;
-  padding: 40px 25%;
+  padding: 20px 25%;
   display: flex;
-  border-top: 4px solid rgba(0, 0, 0, 0.2);
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
 }
 .c2 {
   flex-grow: 2;
@@ -294,4 +294,15 @@ textarea {
 .username {
   display: inline;
   font-size: 25px;
+}
+
+.news h2 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: darkgoldenrod;
+}
+
+.news h4 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

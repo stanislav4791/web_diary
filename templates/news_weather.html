@@ -4,22 +4,22 @@
 
   <body>
     {% include "/partials/navbar.html" %}
-
     <div class="news">
-      <h2>News and Local Weather</h2>
-      
-        {% for news in data %}
-        <h3>{{ news.title }}</h3>
-        <p>{{ news.description}}</p>
-        <a href="{{news.link}}" target="_blank">{{ news.link }}</a>
-        {% endfor %}
-                        
-            {% for item in weather %}
-            <h4>{{ item.query }}  temperature {{ item.temp }}{{ item.unit }}
-              relative humidity {{ item.humidity }}</h4>
-                          
-            {% endfor %}
-                
+      <h2>Local Weather</h2>
+      {% for item in weather %}
+      <h3>
+        {{ item.query }} temperature {{ item.temp }}{{ item.unit }} relative
+        humidity {{ item.humidity }}
+      </h3>
+      {% endfor %}
+      <h2>News</h2>
+      {% for news in data %}
+      <h3>{{ news.title }}</h3>
+      <p>{{ news.description }}</p>
+      <a href="{{news.link}}" class="news_link" target="_blank"
+        >{{ news.link }}</a
+      >
+      {% endfor %}
     </div>
     {% include "/partials/footer.html" %}
   </body>
