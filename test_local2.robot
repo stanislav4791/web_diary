@@ -6,7 +6,7 @@ tunnus antti ja salasana user
 #     Kirjaudu järjestelmän tunnuksilla
 #     Luo uusi artikkeli
 #     Anna otsikko ja sisältö
-#     Talenna ja sulje artikkeli
+#     Tallenna ja sulje artikkeli
 #     Varmista että artikkeli on tallenettu
 
 *** Settings ***
@@ -17,16 +17,18 @@ Library    RPA.Desktop
 ${OSOITE}    http://127.0.0.1:5000
 ${USERNAME}    antti
 ${PASSWORD}    user
-${Title}    Story_of_manager
-${Sisalto}    sisalto
+${LINK}    http://127.0.0.1:5000/login
+#${DATE}    30.3.2023        
+#${Title}    Robot_testing_Login
+#${Sisalto}    work in process
 
 *** Tasks ***
 Testataan että järjestelmään kirjautuminen ja uusien artikkelien luonti onnistuu
     Avaa selain ja http://127.0.0.1:5000 sivu
     Kirjaudu järjestelmän tunnuksilla
     Luo uusi artikkeli
-    Anna otsikko ja sisältö
-    Talenna ja sulje artikkeli
+    Anna pvm ja otsikko ja sisältö
+    Tallenna ja sulje artikkeli
     Varmista että artikkeli on tallenettu
 
 *** Keywords ***
@@ -34,6 +36,7 @@ Avaa selain ja http://127.0.0.1:5000 sivu            # Millä käskyllä se teke
     Open Available Browser    ${OSOITE}
 
 Kirjaudu järjestelmän tunnuksilla
+    Click link    href    ${LINK}
     Click Button    type:Log in 
     Input Text    id:username    ${USERNAME}
     Input Text    id:password    ${PASSWORD}
