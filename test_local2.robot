@@ -36,11 +36,12 @@ Avaa selain ja http://127.0.0.1:5000 sivu            # Millä käskyllä se teke
     Open Available Browser    ${OSOITE}
 
 Kirjaudu järjestelmän tunnuksilla
-    Click link    href    ${LINK}
-    Click Button    type:Log in 
+    Open Available Browser    ${LINK}
+    #Click link    href    ${LINK}
+   #Click Button    type:Log in    #${LINK} 
     Input Text    id:username    ${USERNAME}
     Input Text    id:password    ${PASSWORD}
-    Click Button    class:submit
+    Click Button    type:submit
 
 Luo uusi artikkeli
     #Click Element    class:j-links-link
