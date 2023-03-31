@@ -94,7 +94,7 @@ def diary():
 
 @app.route("/diary/create", methods=['GET','POST'])
 def insert():
-    if request.method == 'GET':
+    if request.method == 'GET' and session['user_id']:
         return render_template("create.html", title="CREATE")
     elif request.method == 'POST':
         # we are inside user_id session
@@ -112,23 +112,24 @@ def insert():
         # redirects user back to diary page
         return redirect(url_for('diary'))
 
-@app.route("/diary/<id>")
+@app.route("/diary/<id>", methods = ["GET"])
 def show_entry(id):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM entries WHERE id =%s", [id])
-    # open single specific entry
-    entry = cur.fetchone()
-    return render_template("partials/entry.html", entry = entry, title="ENTRY")
+    if request.method == 'GET' and session['user_id']:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM entries WHERE id =%s", [id])
+        # open single specific entry
+        entry = cur.fetchone()
+        return render_template("partials/entry.html", entry = entry, title="ENTRY")
 
 @app.route("/diary/update/<id>", methods=['GET','POST'])
 def update(id):
-    if request.method == 'GET':
+    if request.method == 'GET' and session['user_id']:
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM entries WHERE id =%s", [id])
         # open single specific entry for update 
         data = cur.fetchone()
         return render_template("update.html", data = data, title="UPDATE")
-    elif request.method == 'POST':    
+    elif request.method == 'POST' and session['user_id']:    
         # updated data    
         date = request.form['date']
         heading = request.form['heading']
@@ -140,20 +141,21 @@ def update(id):
         return redirect(url_for('diary'))
 
 
-@app.route("/diary/delete/<id>", methods=['GET', 'POST'])
-
+@app.route("/diary/delete/<id>", methods=['GET'])
 def delete(id):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM entries WHERE id = %s", [id])
-    # delete specific entry according to entry id
-    mysql.connection.commit()
-    flash("Entry deleted")
-    return redirect(url_for('diary'))
+    if request.method == 'GET' and session['user_id']:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM entries WHERE id = %s", [id])
+        # delete specific entry according to entry id
+        mysql.connection.commit()
+        flash("Entry deleted")
+        return redirect(url_for('diary'))
 
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
-    session.pop('userid', None)
+    session.pop('user_id', None)
+    session.pop('username', None)
     session.pop('email', None)
     return redirect(url_for('login'))
 
