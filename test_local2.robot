@@ -17,7 +17,8 @@ Library    RPA.Desktop
 ${OSOITE}    http://127.0.0.1:5000
 ${USERNAME}    antti
 ${PASSWORD}    user
-${LINK}    http://127.0.0.1:5000/login
+${LINKLOGIN}    http://127.0.0.1:5000/login
+${LINKDIARY}    http://127.0.0.1:5000/diary
 #${DATE}    30.3.2023        
 #${Title}    Robot_testing_Login
 #${Sisalto}    work in process
@@ -41,9 +42,12 @@ Kirjaudu järjestelmän tunnuksilla
    #Click Button    type:Log in    #${LINK} 
     Input Text    id:username    ${USERNAME}
     Input Text    id:password    ${PASSWORD}
-    Click Button    type:submit
+    Click Button    class:submit 
+    #login.html koodissa type locator vaihdettu class niin testi avaa webdiaryn
+    #Click Element    xpath://button[@type='submit' and @name='Log In']
 
 Luo uusi artikkeli
+    Open Available Browser    ${LINKDIARY}
     #Click Element    class:j-links-link
 
 Anna otsikko ja sisältö
