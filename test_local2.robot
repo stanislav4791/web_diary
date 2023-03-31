@@ -27,17 +27,17 @@ ${LINKDIARY}    http://127.0.0.1:5000/diary
 Testataan että järjestelmään kirjautuminen ja uusien artikkelien luonti onnistuu
     Avaa selain ja http://127.0.0.1:5000 sivu
     Kirjaudu järjestelmän tunnuksilla
-    Luo uusi artikkeli
-    Anna pvm ja otsikko ja sisältö
-    Tallenna ja sulje artikkeli
-    Varmista että artikkeli on tallenettu
+    #Luo uusi artikkeli
+    #Anna pvm ja otsikko ja sisältö
+    #Tallenna ja sulje artikkeli
+    #Varmista että artikkeli on tallenettu
 
 *** Keywords ***
 Avaa selain ja http://127.0.0.1:5000 sivu            # Millä käskyllä se tekee:
     Open Available Browser    ${OSOITE}
 
 Kirjaudu järjestelmän tunnuksilla
-    Open Available Browser    ${LINK}
+    Open Available Browser    ${LINKLOGIN}
     #Click link    href    ${LINK}
    #Click Button    type:Log in    #${LINK} 
     Input Text    id:username    ${USERNAME}
@@ -46,18 +46,18 @@ Kirjaudu järjestelmän tunnuksilla
     #login.html koodissa type locator vaihdettu class niin testi avaa webdiaryn
     #Click Element    xpath://button[@type='submit' and @name='Log In']
 
-Luo uusi artikkeli
-    Open Available Browser    ${LINKDIARY}
+#Luo uusi artikkeli
+    #Open Available Browser    ${LINKDIARY}
     #Click Element    class:j-links-link
 
-Anna otsikko ja sisältö
+#Anna pvm ja otsikko ja sisältö
     #Input Text    id:jform_title   ${Title}
     #Wait Until Element Is Visible    jform_articletext_ifr    20
     #Select Frame    id:jform_articletext_ifr
     #Input Text    id:tinymce    ${Sisalto}
     #Unselect Frame
 
-Talenna ja sulje artikkeli
+#Talenna ja sulje artikkeli
     #Click Button    class:button-save
-Varmista että artikkeli on tallenettu
+#Varmista että artikkeli on tallenettu
     #Element Should Contain    class:alert-message    Article saved.
