@@ -12,10 +12,9 @@
     ><br />
     <!-- create LOOP for entries from database -->
     {% for entry in data %}
-    <a class="id" href="/diary/{{entry.id}}">{{entry.id}}</a>
     <!-- show results for date, heading and content -->
     <p class="date">{{entry.date}}</p>
-    <h4 class="heading">{{entry.heading}}</h4>
+    <h4 class="heading"><a href="/diary/{{entry.id}}">{{entry.heading}}</a></h4>
     <p class="content">{{entry.content}}</p>
     {% endfor %}
   </div>
