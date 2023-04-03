@@ -42,7 +42,7 @@ Kirjaudu järjestelmän tunnuksilla
    #Click Button    type:Log in    #${LINK} 
     Input Text    id:username    ${USERNAME}
     Input Text    id:password    ${PASSWORD}
-    Click Button    class:submit 
+    Click Button    id:submit 
     #login.html koodissa type locator vaihdettu class niin testi avaa webdiaryn
     #Click Element    xpath://button[@type='submit' and @name='Log In']
 
