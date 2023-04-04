@@ -30,7 +30,9 @@ def register():
         hashed = bcrypt.hashpw(password, bcrypt.gensalt())
         # create cursor for SQL query
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO user VALUES (%s, %s, %s, %s)', ('', username, hashed, email))
+        sql = 'INSERT INTO user VALUES (%s, %s, %s, %s)'
+        params = ('', username, hashed, email)
+        cur.execute(sql, params)
         mysql.connection.commit()
         # creates message to HTML page
         flash("Successful registration")
@@ -45,7 +47,9 @@ def login():
         username = request.form['username']
         password = request.form['password'].encode("utf-8")
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE username = %s', [username])
+        sql = 'SELECT * FROM user WHERE username = %s'
+        param = [username]
+        cur.execute(sql, param)
         # create user variable for user information from MySQL database
         user = cur.fetchone()
         # create res variable and transform user (dictionary) to iterable sequence of key-value pairs 
@@ -79,10 +83,11 @@ def diary():
     if request.method == "GET" and session['user_id']:
         ide = session['user_id']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM entries WHERE user_id =%s", [ide])
+        sql = "SELECT * FROM entries WHERE user_id =%s"
+        param = [ide]
+        cur.execute(sql, param)
         # create data variable for database entries
         data = cur.fetchall()
-
         # deactivate cursor 
         cur.close()
         # if data is found
@@ -90,7 +95,7 @@ def diary():
             return render_template("diary.html", data = data, title='HOME')
         else:
             flash("No diary entries")
-            return render_template("diary.html", data = data, title='HOME')
+            return render_template("diary.html", title='HOME')
 
 @app.route("/diary/create", methods=['GET','POST'])
 def insert():
@@ -105,7 +110,9 @@ def insert():
         content = request.form['content']
         # makes cursor & query
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO entries (user_id, date, heading, content) VALUES (%s, %s, %s, %s)", (user_id, date, heading, content))
+        sql = "INSERT INTO entries (user_id, date, heading, content) VALUES (%s, %s, %s, %s)"
+        params = (user_id, date, heading, content)
+        cur.execute(sql, params)
         # commit changes to MySQL
         mysql.connection.commit()
         flash("Entry created")
@@ -116,7 +123,9 @@ def insert():
 def show_entry(id):
     if request.method == 'GET' and session['user_id']:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM entries WHERE id =%s", [id])
+        sql = "SELECT * FROM entries WHERE id =%s"
+        param = [id]
+        cur.execute(sql, param)
         # open single specific entry
         entry = cur.fetchone()
         return render_template("partials/entry.html", entry = entry, title="ENTRY")
@@ -125,7 +134,9 @@ def show_entry(id):
 def update(id):
     if request.method == 'GET' and session['user_id']:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM entries WHERE id =%s", [id])
+        sql ="SELECT * FROM entries WHERE id =%s"
+        param = [id]
+        cur.execute(sql, param)
         # open single specific entry for update 
         data = cur.fetchone()
         return render_template("update.html", data = data, title="UPDATE")
@@ -135,7 +146,7 @@ def update(id):
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE entries set date='%s', heading='%s', content='%s' WHERE id='%s' " % (date, heading, content, id))
+        cur.execute("UPDATE entries SET date='%s', heading='%s', content='%s' WHERE id='%s'" % (date, heading, content, id))
         mysql.connection.commit()
         flash("Entry updated")
         return redirect(url_for('diary'))
@@ -145,7 +156,9 @@ def update(id):
 def delete(id):
     if request.method == 'GET' and session['user_id']:
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM entries WHERE id = %s", [id])
+        sql = "DELETE FROM entries WHERE id = %s"
+        param = [id]
+        cur.execute(sql, param)
         # delete specific entry according to entry id
         mysql.connection.commit()
         flash("Entry deleted")
