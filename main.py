@@ -146,7 +146,9 @@ def update(id):
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE entries SET date='%s', heading='%s', content='%s' WHERE id='%s'" % (date, heading, content, id))
+        sql = "UPDATE entries SET date = %s, heading= %s, content= %s WHERE id= %s"
+        params = (date, heading, content, id)
+        cur.execute(sql, params)
         mysql.connection.commit()
         flash("Entry updated")
         return redirect(url_for('diary'))
