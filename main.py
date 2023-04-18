@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'stanistheman'
 # configurate MYSQL server:
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_USER'] = 'user'
+app.config['MYSQL_PASSWORD'] = '323768CR10'
 app.config['MYSQL_DB'] = 'diary'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -141,30 +141,48 @@ def update(id):
         data = cur.fetchone()
         return render_template("update.html", data = data, title="UPDATE")
     elif request.method == 'POST' and session['user_id']:    
-        # updated data    
+        # updated data 
+        cur = mysql.connection.cursor()
+        sql ="SELECT * FROM entries WHERE id =%s"
+        param = [id]
+        cur.execute(sql, param)
+        data = cur.fetchone()
         date = request.form['date']
         heading = request.form['heading']
         content = request.form['content']
         cur = mysql.connection.cursor()
         sql = "UPDATE entries SET date = %s, heading= %s, content= %s WHERE id= %s"
         params = (date, heading, content, id)
-        cur.execute(sql, params)
-        mysql.connection.commit()
-        flash("Entry updated")
-        return redirect(url_for('diary'))
+        if data['user_id'] == session['user_id']:
+            cur.execute(sql, params)
+            mysql.connection.commit()
+            flash("Entry updated")
+            return redirect(url_for('diary'))
+        else:
+            flash("permission denied")
+            return redirect(url_for('diary'))
+        
 
 
 @app.route("/diary/delete/<id>", methods=['GET'])
 def delete(id):
     if request.method == 'GET' and session['user_id']:
         cur = mysql.connection.cursor()
-        sql = "DELETE FROM entries WHERE id = %s"
+        sql ="SELECT * FROM entries WHERE id =%s"
         param = [id]
         cur.execute(sql, param)
-        # delete specific entry according to entry id
-        mysql.connection.commit()
-        flash("Entry deleted")
-        return redirect(url_for('diary'))
+        data = cur.fetchone()
+        # delete specific entry according to entry id 
+        if data['user_id'] == session['user_id']:
+            sql2 = "DELETE FROM entries WHERE id = %s"
+            param2 = [id]
+            cur.execute(sql2, param2)
+            mysql.connection.commit()
+            flash("Entry deleted")
+            return redirect(url_for('diary'))
+        else:
+            flash("permission denied")
+            return redirect(url_for('diary'))
 
 @app.route('/logout')
 def logout():
